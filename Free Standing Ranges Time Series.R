@@ -5,7 +5,7 @@ data <- Shipment_Data
 #class(data)
 
 #slicing time (year-week) and units alone
-dataDryer <- data[data$PRODUCT == "French Door",c(3,5)]
+dataDryer <- data[data$PRODUCT == "Free Standing Ranges",c(3,5)]
 
 plot(dataDryer$INDUSTRY_UNITS,dataDryer$WEEK)
 #converting the dataframe to timeseries
@@ -43,7 +43,7 @@ fitDryer <- arima(DryerTs, c(0,0,1),seasonal = list(order = c(1, 1, 0), period =
 predDryer <- predict(fitDryer, n.ahead=27)
 
 #actual value(sales) for Q3 and Q4 (taken from actual data for evaluation)
-actual <- 1587699
+actual <- 3627445
 
 
 #predicted value (demand) for Q3 and Q4                    
