@@ -5,42 +5,42 @@ data <- Shipment_Data
 #class(data)
 
 #slicing time (year-week) and units alone
-dataDryer <- data[data$PRODUCT == "Free Standing Ranges",c(3,5)]
+dataFSR <- data[data$PRODUCT == "Free Standing Ranges",c(3,5)]
 
 plot(dataDryer$INDUSTRY_UNITS,dataDryer$WEEK)
 #converting the dataframe to timeseries
-DryerTs <- ts(dataDryer$INDUSTRY_UNITS, start=c(2010,1), end= c(2015,26), freq=54)
+FSRTs <- ts(dataFSR$INDUSTRY_UNITS, start=c(2010,1), end= c(2015,26), freq=54)
 
 #finding class
-class(DryerTs)
+class(FSRTs)
 
 #plot the time series
-ts.plot(diff(DryerTs))
+ts.plot(diff(FSRTs))
 
 #Augmented Dickey-Fuller Test for given series
-adf.test(DryerTs)
+adf.test(FSRTs)
 
 #acf graph for given series
-acf(DryerTs)
+acf(FSRTs)
 
 #pacf graph for given series
-pacf(DryerTs)
+pacf(FSRTs)
 
 #Augmented Dickey-Fuller Test after differencing
-adf.test(diff(DryerTs))
+adf.test(diff(FSRTs))
 
 #acf/pacf graph after differencing
-acf2(diff(DryerTs))
-acf2(diff(DryerTs), max.lag=120)
+acf2(diff(FSRTs))
+acf2(diff(FSRTs), max.lag=120)
 
 #pacf graph after differencing
-#pacf(diff(DryerTs))
+#pacf(diff(FSRTs))
 
 #fitting ARIMA model
-fitDryer <- arima(DryerTs, c(0,0,1),seasonal = list(order = c(1, 1, 0), period = 54))
+fitFSR <- arima(FSRTs, c(0,0,1),seasonal = list(order = c(1, 1, 0), period = 54))
 
 #predicting for next 2 quarters (27 weeks)
-predDryer <- predict(fitDryer, n.ahead=27)
+predDryer <- predict(fitFSR, n.ahead=27)
 
 #actual value(sales) for Q3 and Q4 (taken from actual data for evaluation)
 actual <- 3627445
